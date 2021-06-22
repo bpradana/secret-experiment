@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:secret_experiment/model/post_model.dart';
 import 'package:secret_experiment/page/PostPage.dart';
+import 'package:secret_experiment/widget/card_widget.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -37,14 +38,8 @@ class _HomePageState extends State<HomePage> {
                 return ListView.builder(
                   itemCount: snapshot.data.length,
                   itemBuilder: (context, i) {
-                    return ListTile(
-                      title: Text(snapshot.data[i].content),
-                      subtitle: Text(snapshot.data[i].name +
-                          '\n' +
-                          DateTime.parse(snapshot.data[i].created)
-                              .toLocal()
-                              .toString()),
-                    );
+                    return PostCard(snapshot.data[i].name,
+                        snapshot.data[i].content, snapshot.data[i].created);
                   },
                 );
             },
