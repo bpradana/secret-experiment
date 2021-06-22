@@ -46,7 +46,7 @@ Future createPost(String content) async {
       'content': content,
     }),
   );
-  if (response.statusCode == 201) {
+  if (response.statusCode == 200) {
     return Post.fromJson(jsonDecode(response.body));
   } else {
     throw Exception('Failed to create post.');
