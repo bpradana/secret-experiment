@@ -32,6 +32,23 @@ Future fetchPost() async {
     }
     return postList;
   } else {
-    throw Exception('Failed to load posts');
+    throw Exception('Failed to load post');
+  }
+}
+
+Future createPost(String content) async {
+  var response = await http.post(
+    Uri.parse('https://secretclone.herokuapp.com/posts'),
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+    body: jsonEncode(<String, String>{
+      'content': content,
+    }),
+  );
+  if (response.statusCode == 201) {
+    return Post.fromJson(jsonDecode(response.body));
+  } else {
+    throw Exception('Failed to create post.');
   }
 }

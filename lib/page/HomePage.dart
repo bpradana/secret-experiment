@@ -39,7 +39,11 @@ class _HomePageState extends State<HomePage> {
                   itemBuilder: (context, i) {
                     return ListTile(
                       title: Text(snapshot.data[i].content),
-                      subtitle: Text(snapshot.data[i].name),
+                      subtitle: Text(snapshot.data[i].name +
+                          '\n' +
+                          DateTime.parse(snapshot.data[i].created)
+                              .toLocal()
+                              .toString()),
                     );
                   },
                 );
