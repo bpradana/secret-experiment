@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:secret_experiment/model/post_model.dart';
+import 'package:secret_experiment/page/PostPage.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -12,6 +13,14 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
         appBar: AppBar(
           title: Text('DeepTalk'),
+        ),
+        floatingActionButton: FloatingActionButton.extended(
+          onPressed: () {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => PostPage()));
+          },
+          label: Text('Post'),
+          icon: const Icon(Icons.add),
         ),
         body: Container(
           child: Card(
