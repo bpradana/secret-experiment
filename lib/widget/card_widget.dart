@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class PostCard extends StatelessWidget {
   const PostCard(this.name, this.content, this.created);
@@ -7,12 +8,49 @@ class PostCard extends StatelessWidget {
   final String content;
   final String created;
 
-  // Change this vin
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-        title: Text(content),
-        subtitle:
-            Text(name + '\n' + DateTime.parse(created).toLocal().toString()));
+    return Card(
+      color: Color(0xFF3A3A3A),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      child: Padding(
+        padding: EdgeInsets.fromLTRB(16,16,16,24),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    name,
+                    style: TextStyle(
+                      fontFamily: 'SourceSansPro',
+                      fontSize: 14, 
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xFFEAEAEA) 
+                      )
+                    ), 
+                  Text(
+                    DateFormat.jm().format(DateTime.parse(created).toLocal()),
+                    style: TextStyle(
+                      fontFamily: 'SourceSansPro',
+                      fontSize: 12, 
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xFFEAEAEA)
+                      )
+                  )
+                ],
+              ),
+            ),
+            const SizedBox(height: 12),
+            Text(
+              content,
+              style: TextStyle(fontSize: 12, color: Color(0xFFEAEAEA))
+            ),
+          ],
+        )
+      )
+    );
   }
 }

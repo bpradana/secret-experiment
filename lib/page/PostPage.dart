@@ -13,24 +13,37 @@ class _PostPageState extends State<PostPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text('Post Page'),
-        ),
-        body: Container(
-            child: Center(
-          child: (_futurePost == null) ? buildColumn() : buildFutureBuilder(),
+        backgroundColor: Color(0xFF111111),
+        appBar: buildAppBar(context),
+        body: Card(
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+            margin: EdgeInsets.fromLTRB(24,20,24,80),
+            color: Color(0xFF3A3A3A),
+            child: Padding(
+              padding: EdgeInsets.all(24),
+              child: (_futurePost == null) ? buildColumn() : buildFutureBuilder(),
         )));
   }
-
+  
   Column buildColumn() {
     return Column(
-      children: [
+      
+     children: [
         TextField(
+          
+          keyboardType: TextInputType.multiline,
+          maxLines: 36,
+          style: TextStyle(color: Color(0xFFEAEAEA)),
           controller: _controller,
           decoration: InputDecoration(
+            border: InputBorder.none,
             hintText: 'Write your sambatan',
+            hintStyle: TextStyle(
+              color: Color(0xFFCECECE),
+            )
           ),
         ),
+        const SizedBox(height: 24),
         ElevatedButton(
             onPressed: () {
               setState(() {
@@ -38,7 +51,7 @@ class _PostPageState extends State<PostPage> {
               });
             },
             child: Text('Post!'))
-      ],
+      ]
     );
   }
 
@@ -47,7 +60,8 @@ class _PostPageState extends State<PostPage> {
       future: _futurePost,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          return Text(snapshot.data.content);
+          Navigator.push(
+                context, MaterialPageRoute(builder: (context) => PostPage()));
         } else if (snapshot.hasError) {
           return Text('${snapshot.error}');
         }
@@ -55,6 +69,32 @@ class _PostPageState extends State<PostPage> {
         return CircularProgressIndicator();
       },
     );
+  }
+
+  Widget buildAppBar(BuildContext context) {
+    return AppBar(
+        centerTitle: true,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        title: TextButton.icon(
+            icon: ImageIcon(
+              AssetImage('assets/icons/icon_logo.png'),
+              size: 32,
+            ),
+            label: Text(
+              'deepTalk',
+              style: TextStyle(
+                fontFamily: 'SourceSansPro',
+                color: Color(0xFFEAEAEA),
+                fontWeight: FontWeight.bold,
+                fontSize: 30,
+              ),
+            ),
+            onPressed: () {
+              print('Pressed');
+            }
+          )
+        );
   }
 }
 
