@@ -12,9 +12,9 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text('DeepTalk'),
-        ),
+        
+        appBar: buildAppBar(context),
+        backgroundColor: Color(0xff131418),
         floatingActionButton: FloatingActionButton.extended(
           onPressed: () {
             Navigator.push(
@@ -22,10 +22,14 @@ class _HomePageState extends State<HomePage> {
           },
           label: Text('Post'),
           icon: const Icon(Icons.add),
+          backgroundColor: Color(0xFF00AEEF),
         ),
         body: Container(
-          child: Card(
-              child: FutureBuilder(
+          margin: EdgeInsets.fromLTRB(24,20,24,80),
+          
+          child: Container(
+            color: Colors.transparent,
+            child: FutureBuilder(
             future: fetchPost(),
             builder: (context, snapshot) {
               if (snapshot.data == null) {
@@ -46,4 +50,31 @@ class _HomePageState extends State<HomePage> {
           )),
         ));
   }
+
+  Widget buildAppBar(BuildContext context) {
+    return AppBar(  
+        centerTitle: true,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        title: TextButton.icon(
+            icon: ImageIcon(
+              AssetImage('assets/icons/icon_logo.png'),
+              size: 32,
+            ),
+            label: Text(
+              'deepTalk',
+              style: TextStyle(
+                fontFamily: 'SourceSansPro',
+                color: Color(0xFFEAEAEA),
+                fontWeight: FontWeight.bold,
+                fontSize: 30,
+              ),
+            ),
+            onPressed: () {
+              print('Pressed');
+            }
+          )
+        );
+  }
+  
 }
